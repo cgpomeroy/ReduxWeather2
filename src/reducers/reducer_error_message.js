@@ -3,7 +3,7 @@ import { HANDLE_PROMISE_REJECTED, CLEAR_ERROR_MESSAGE } from "../actions";
 export default function (state=null, action) {
     switch(action.type){
         case HANDLE_PROMISE_REJECTED:
-            return "There was a problem with your request. Please try again.";
+            return "Hmm. Couldn't find any cities by that name. Try again.";
         case CLEAR_ERROR_MESSAGE:
             return null
     }

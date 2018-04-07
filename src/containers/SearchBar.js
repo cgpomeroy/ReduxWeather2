@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {fetchWeather} from "../actions";
+import {clearErrorMessage, fetchWeather} from "../actions";
 
 class SearchBar extends Component {
     constructor(props) {
@@ -18,6 +18,7 @@ class SearchBar extends Component {
 
         //We'll fetch data here!
         this.props.fetchWeather(this.state.term);
+        this.props.clearErrorMessage();
         this.setState({term: ''});
     }
 
@@ -25,9 +26,16 @@ class SearchBar extends Component {
         this.setState({term: e.target.value});
     }
 
+    displayError(){
+        if(this.props.error){
+            return <div className="alert alert-danger">{this.props.error}</div>
+        }
+    }
+
 
     render(){
         return(
+            <div>
             <form
                 className="input-group"
                 onSubmit={this.onFormSubmit}
@@ -35,19 +43,25 @@ class SearchBar extends Component {
                 <input
                     className="form-control"
                     onChange={this.onInputChange}
-                    placeholder="Get a five-day forecast in any city."
+                    placeholder="Get a five-day forecast in any US city."
                     value={this.state.term}
                 />
                 <span className="input-group-btn">
                     <button type="submit" className="btn btn-secondary">Search</button>
                 </span>
             </form>
+                {this.displayError()}
+            </div>
         );
     }
 }
 
 function matchDispatchToProps (dispatch){
-    return bindActionCreators({ fetchWeather }, dispatch);
+    return bindActionCreators({ fetchWeather, clearErrorMessage }, dispatch);
 };
 
-export default connect(null, matchDispatchToProps)(SearchBar);
+function mapStateToProps({error}){
+    return {error};
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(SearchBar);

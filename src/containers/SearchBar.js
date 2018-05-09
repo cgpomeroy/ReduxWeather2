@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {clearErrorMessage, fetchWeather} from "../actions";
+import FontAwesome from 'react-fontawesome';
 
 class SearchBar extends Component {
     constructor(props) {
@@ -19,7 +20,6 @@ class SearchBar extends Component {
         //We'll fetch data here!
         this.props.fetchWeather(this.state.term);
         this.props.clearErrorMessage();
-        this.setState({term: ''});
     }
 
     onInputChange(e){
@@ -35,19 +35,31 @@ class SearchBar extends Component {
 
     render(){
         return(
-            <div>
+            <div style={{padding: "1em"}}>
             <form
                 className="input-group"
                 onSubmit={this.onFormSubmit}
+                style={{borderBottom: "1px solid #4286D4"}}
             >
+                <span className="input-group-btn">
+                    <button
+                        className="btn btn-secondary"
+                        style={{border: "none", backgroundColor: "rgba(54,124,214,0)"}}
+                        type="submit"><FontAwesome name='search'/></button>
+                </span>
                 <input
                     className="form-control"
                     onChange={this.onInputChange}
-                    placeholder="Get a five-day forecast in any US city."
+                    style={{border: "none", backgroundColor: "rgba(54,124,214,0)", color: "white", fontSize: "2em"}}
                     value={this.state.term}
                 />
                 <span className="input-group-btn">
-                    <button type="submit" className="btn btn-secondary">Search</button>
+                    <button
+                        className="btn btn-secondary"
+                        onClick={()=>{this.setState({term: ""}, this.props.clearErrorMessage)}}
+                        style={{border: "none", backgroundColor: "rgba(54,124,214,0)"}}
+                        type="button"
+                    ><FontAwesome name='times'/></button>
                 </span>
             </form>
                 {this.displayError()}

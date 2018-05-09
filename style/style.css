@@ -1,17 +1,16 @@
-td, th {
-    vertical-align: middle !important;
-    text-align: center !important;
+.rightBorder{
+    border-right: 1px #EEEEEE solid;
 }
 
-.input-group {
-    margin: 20px 0px;
+.noPadding{
+    padding: 0 !important;
 }
 
-svg {
-    height: 150px;
+.shadow{
+    -moz-box-shadow: 0 0 15px darkslategray;
+    -webkit-box-shadow: 0 0 15px darkslategray;
+    box-shadow: 0 0 15px darkslategray;
 }
-
-td:first-of-type, td:first-of-type > div {
-    height: 200px;
-    width: 250px;
+body{
+    font-family: 'Open Sans', serif;
 }
